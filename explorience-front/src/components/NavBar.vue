@@ -2,27 +2,70 @@
  * @Author: shemin
  * @Date: 2024-08-16 14:54:28
  * @LastEditors: shemin
- * @LastEditTime: 2024-08-18 12:57:08
+ * @LastEditTime: 2024-08-19 10:19:36
  * @Description: file content
- * @FilePath: \explorience\explorience-frontend\src\components\NavBar.vue
+ * @FilePath: \explorience\explorience-front\src\components\NavBar.vue
 -->
 <template>
   <nav class="navbar">
     <ul class="nav-links">
       <li>
-        <router-link to="/targetSite">{{ $t("popDest") }}</router-link>
+        <el-dropdown>
+          <span class="el-dropdown-link">{{ $t("popDest") }}</span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item>{{ $t("wuhan") }}</el-dropdown-item>
+              <el-dropdown-item>{{ $t("shanghai") }}</el-dropdown-item>
+              <el-dropdown-item>{{ $t("beijing") }}</el-dropdown-item>
+              <el-dropdown-item>{{ $t("guangzhou") }}</el-dropdown-item>
+              <el-dropdown-item>{{ $t("chengdu") }}</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
       </li>
       <li>
-        <router-link to="/targetSite">{{ $t("allDest") }}</router-link>
+        <el-dropdown>
+          <span class="el-dropdown-link">{{ $t("allDest") }}</span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item>{{ $t("wuhan") }}</el-dropdown-item>
+              <el-dropdown-item>{{ $t("shanghai") }}</el-dropdown-item>
+              <el-dropdown-item>{{ $t("beijing") }}</el-dropdown-item>
+              <el-dropdown-item>{{ $t("guangzhou") }}</el-dropdown-item>
+              <el-dropdown-item>{{ $t("chengdu") }}</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
       </li>
       <li>
-        <router-link to="/services">{{ $t("service") }}</router-link>
+        <el-dropdown>
+          <span class="el-dropdown-link">{{ $t("service") }}</span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item>{{ $t("visaGuide") }}</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
       </li>
       <li>
-        <router-link to="/contact">{{ $t("contact") }}</router-link>
+        <el-dropdown>
+          <span class="el-dropdown-link">{{ $t("contact") }}</span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item>{{ $t("contact") }}</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
       </li>
       <li>
-        <router-link to="/about">{{ $t("about") }}</router-link>
+        <el-dropdown>
+          <span class="el-dropdown-link">{{ $t("about") }}</span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item>{{ $t("about") }}</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
       </li>
     </ul>
   </nav>
@@ -35,6 +78,12 @@ export default {
 </script>
 
 <style scoped>
+.el-dropdown-link {
+  color: #000;
+  font-size: 16px;
+  font-weight: 500; /* 设置字体粗细 */
+  letter-spacing: 2px;
+}
 .navbar {
   background: transparent;
   display: flex;
@@ -57,7 +106,6 @@ export default {
 .nav-links a {
   color: white;
   text-decoration: none;
-  font-family: "Microsoft Yahei", Helvetica, sans-serif !important;
   font-size: 16px; /* 设置字体大小 */
   font-weight: 600; /* 设置字体粗细 */
   letter-spacing: 5px; /* 设置字母间距 */

@@ -2,17 +2,14 @@
  * @Author: shemin
  * @Date: 2024-08-18 11:10:21
  * @LastEditors: shemin
- * @LastEditTime: 2024-08-18 12:50:23
+ * @LastEditTime: 2024-08-19 10:20:36
  * @Description: file content
- * @FilePath: \explorience\explorience-frontend\src\components\ActionBar.vue
+ * @FilePath: \explorience\explorience-front\src\components\ActionBar.vue
 -->
 <template>
   <div class="action-bar">
     <el-button round type="warning" @click="$router.push('/login')">
       {{ $t("login") }}
-    </el-button>
-    <el-button round type="warning" @click="$router.push('/register')">
-      {{ $t("register") }}
     </el-button>
     <div class="language-switcher">
       <el-select

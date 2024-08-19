@@ -2,26 +2,31 @@
  * @Author: shemin
  * @Date: 2024-08-16 14:30:20
  * @LastEditors: shemin
- * @LastEditTime: 2024-08-18 11:21:44
+ * @LastEditTime: 2024-08-19 10:31:38
  * @Description: file content
- * @FilePath: \explorience\explorience-frontend\src\App.vue
+ * @FilePath: \explorience\explorience-front\src\App.vue
 -->
 <template>
   <div id="app">
-    <Header />
-    <ImageCarousel class="banner" />
+    <el-container>
+      <el-header><Header /></el-header>
+      <ElCarousel />
+      <AppFooter />
+    </el-container>
   </div>
 </template>
 
 <script>
 import Header from "./components/Header.vue";
-import ImageCarousel from "./components/ImageCarousel.vue";
+import ElCarousel from "./components/ElCarousel.vue";
+import AppFooter from "./components/AppFooter.vue";
 
 export default {
   name: "App",
   components: {
     Header,
-    ImageCarousel,
+    ElCarousel,
+    AppFooter,
   },
 };
 </script>
@@ -29,11 +34,6 @@ export default {
 <style>
 body {
   margin: 0;
-}
-.banner {
-  position: relative;
-  width: 100%;
-  height: 300px; /* 根据需要设置高度 */
-  z-index: 1; /* 确保 banner 在 header-navbar 下层 */
+  font-family: "HarmonyOS Sans", sans-serif;
 }
 </style>

@@ -2,7 +2,7 @@
  * @Author: shemin
  * @Date: 2024-08-16 14:30:20
  * @LastEditors: shemin
- * @LastEditTime: 2024-08-18 20:54:56
+ * @LastEditTime: 2024-08-19 09:47:51
  * @Description: file content
  * @FilePath: \explorience\explorience-front\src\main.js
  */
@@ -11,7 +11,7 @@ import App from './App.vue'
 import { createI18n } from 'vue-i18n';
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
-
+import './styles/fontFamily.scss'
 // 导入语言文件
 import en from './locales/en.json';
 import zh from './locales/zh.json';
