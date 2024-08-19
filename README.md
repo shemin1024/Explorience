@@ -6,7 +6,7 @@
 #### 软件架构
 前端使用vue+element-ui，后端使用springboot+mybatis+mysql
 
-![image](https://gitee.com/shemin1023/explorience/blob/master/explorience-nav.gif)
+![image](https://gitee.com/shemin1023/explorience/raw/master/explorience-nav.gif)
 
 # 前端页面设计
 
