@@ -1,13 +1,70 @@
 # Explorience
 
 #### 介绍
-{**以下是 Gitee 平台说明，您可以替换此简介**
-Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用 Gitee 实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+个人旅游网站项目，记录开发过程
 
 #### 软件架构
-软件架构说明
+前端使用vue+element-ui，后端使用springboot+mybatis+mysql
 
+
+# 前端页面设计
+
+## 网站标题和导航栏
+
+- 网站名称：Explorience
+- 导航栏：
+  - 热门目的地
+  - 所有目的地
+  - 服务
+  - 联系我们
+  - 关于我们
+
+## 主视觉区域（Hero Section）
+
+- 背景图片：高清的旅游景点图片，如海滩、山脉、城市天际线等，传递旅游的美好体验。
+- 标语：Explore the World, a Wonderful Experience.
+- 行动按钮：
+  - 立即预订
+  - 了解更多
+
+## 特色旅游目的地
+
+- 三到四个旅游目的地卡片，每个卡片展示一个热门的旅游地点，包括：
+  - 图片
+  - 简短描述
+
+- “了解更多”链接
+
+## 服务介绍
+
+- 三个或四个服务卡片：
+  - 定制旅行计划
+  - 酒店和住宿
+  - 导游服务
+  - 24/7 客户支持
+- 每个服务卡片都有一个简短描述和图标。
+
+## 联系我们
+
+简单的联系表单：包括姓名、电子邮件、电话和消息字段。
+联系信息：包括公司的地址、电话、电子邮件和社交媒体链接。
+
+## 关于我们
+
+简短公司介绍：介绍公司的历史、愿景和使命。
+团队照片：显示公司的核心团队成员。
+
+## 页脚
+
+快速链接：主页、关于我们、隐私政策、条款和条件。
+社交媒体图标：链接到公司的社交媒体页面。
+版权声明：© 2024 Explorience. All rights reserved.
+
+## 额外功能（可选）
+
+语言选择器：支持多种语言以吸引国际客户。
+搜索功能：让用户能够搜索旅游目的地或服务。
+订阅邮件列表：用户可以输入邮箱订阅旅游优惠信息
 
 #### 安装教程
 
@@ -29,11 +86,4 @@ Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN�
 4.  新建 Pull Request
 
 
-#### 特技
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
