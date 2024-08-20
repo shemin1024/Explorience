@@ -2,29 +2,27 @@
  * @Author: shemin
  * @Date: 2024-08-16 14:30:20
  * @LastEditors: shemin
- * @LastEditTime: 2024-08-19 10:31:38
+ * @LastEditTime: 2024-08-19 17:25:49
  * @Description: file content
  * @FilePath: \explorience\explorience-front\src\App.vue
 -->
 <template>
   <div id="app">
-    <el-container>
-      <el-header><Header /></el-header>
-      <ElCarousel />
-      <AppFooter />
-    </el-container>
+    <HeaderEl />
+    <ElCarousel />
+    <AppFooter />
   </div>
 </template>
 
 <script>
-import Header from "./components/Header.vue";
+import HeaderEl from "./components/HeaderEl.vue";
 import ElCarousel from "./components/ElCarousel.vue";
 import AppFooter from "./components/AppFooter.vue";
 
 export default {
   name: "App",
   components: {
-    Header,
+    HeaderEl,
     ElCarousel,
     AppFooter,
   },
@@ -33,7 +31,6 @@ export default {
 
 <style>
 body {
-  margin: 0;
   font-family: "HarmonyOS Sans", sans-serif;
 }
 </style>

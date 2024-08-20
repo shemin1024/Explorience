@@ -2,9 +2,9 @@
  * @Author: shemin
  * @Date: 2024-08-18 10:59:14
  * @LastEditors: shemin
- * @LastEditTime: 2024-08-18 11:24:12
+ * @LastEditTime: 2024-08-19 17:35:17
  * @Description: file content
- * @FilePath: \explorience\explorience-frontend\src\components\Header.vue
+ * @FilePath: \explorience\explorience-front\src\components\Header.vue
 -->
 
 <template>
@@ -45,14 +45,15 @@ export default {
   z-index: 999;
 }
 .header-logo img {
-  height: 40px; /* 根据需要调整 logo 的大小 */
+  height: 60px; /* 根据需要调整 logo 的大小 */
 }
 
-.nav-bar {
+/*.nav-bar {
   z-index: 999;
   background: transparent;
   display: flex;
   align-items: center;
   width: 60%;
-}
+  padding: 0 0;
+}*/
 </style>

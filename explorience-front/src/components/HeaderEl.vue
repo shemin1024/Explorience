@@ -1,14 +1,21 @@
 <!--
  * @Author: shemin
- * @Date: 2024-08-16 14:54:28
+ * @Date: 2024-08-19 16:59:55
  * @LastEditors: shemin
- * @LastEditTime: 2024-08-19 17:34:20
+ * @LastEditTime: 2024-08-20 09:51:50
  * @Description: file content
- * @FilePath: \explorience\explorience-front\src\components\NavBar.vue
+ * @FilePath: \explorience\explorience-front\src\components\HeaderEl.vue
 -->
 <template>
-  <div class="nav-menu">
-    <el-menu :default-active="activeMenu" mode="horizontal" @select="handleMenuClick">
+  <el-header height="60px" class="header">
+    <div class="logo">
+      <!-- 使用Element Plus中的图标组件来展示Logo -->
+      <el-icon>
+        <img src="@/assets/logo.png" alt="Logo" />
+      </el-icon>
+    </div>
+
+    <el-menu :default-active="activeMenu" mode="horizontal" class="menu">
       <el-menu-item index="1">
         <el-dropdown>
           <span class="el-dropdown-link">{{ $t("popDest") }}</span>
@@ -68,41 +75,51 @@
         </el-dropdown>
       </el-menu-item>
     </el-menu>
-  </div>
+
+    <ActionBar class="action-bar" />
+  </el-header>
 </template>
 
 <script>
+import ActionBar from "./ActionBar.vue";
 export default {
-  name: "NavBar",
+  name: "HeaderComponent",
+  components: {
+    ActionBar,
+  },
 };
 </script>
 
 <style scoped>
-.nav-menu {
+.logo img {
+  height: 60px; /* 根据需要调整 logo 的大小 */
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background: transparent;
+}
+
+.logo {
   display: flex;
   align-items: center;
-  width: 100%;
-  justify-content: space-between;
 }
 
-.el-menu-item {
-  padding: 0 15px;
+.menu {
+  display: flex;
+  justify-content: center;
+  width: 70%;
 }
-
-@media (max-width: 768px) {
-  .nav-menu {
-    flex-direction: column;
-  }
-
-  .el-menu-item {
-    padding: 10px 0;
-    text-align: center;
-  }
+.action-bar {
+  display: flex;
+  align-items: center;
 }
 .el-dropdown-link {
   color: #000;
   font-size: 16px;
   font-weight: 500; /* 设置字体粗细 */
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 }
 </style>
