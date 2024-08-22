@@ -2,14 +2,18 @@ package com.explorience.explorienceserver.controller;
 
 import com.explorience.explorienceserver.entity.User;
 import com.explorience.explorienceserver.enums.MsgCodeEnum;
-import com.explorience.explorienceserver.pojo.ResponseData;
+import com.explorience.explorienceserver.pojo.*;
 import com.explorience.explorienceserver.service.EmailService;
 import com.explorience.explorienceserver.service.UserService;
-import org.springframework.http.ResponseEntity;
+import com.explorience.explorienceserver.utils.MD5Utils;
+import com.explorience.explorienceserver.utils.RedisUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.Random;
 
 @RestController
@@ -19,20 +23,40 @@ public class UserController {
     private UserService userService;
     @Resource
     private EmailService emailService;
+    @Resource
+    private RedisUtil redisUtil;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @ResponseBody
     @PostMapping("/register")
-    public ResponseData<User> register(@RequestBody User user) {
-        return ResponseData.ok(userService.createUser(user));
+    public ResponseData<UserVo> register(@RequestBody RegisterReq user) {
+        if (userService.findUserByName(user.getEmail()) != null) {
+            return ResponseData.error(MsgCodeEnum.EXIST);
+        }
+        // 验证验证码
+        String codeInRedis = (String) redisUtil.get(getRedisKey(user.getEmail()));
+        if (user.getVerifyCode().equalsIgnoreCase(codeInRedis)){
+            redisUtil.delete(getRedisKey(user.getEmail()));
+        }else {
+            return ResponseData.error(MsgCodeEnum.VERIFY_CODE_ERROR);
+        }
+        // 保存用户
+        User user1 = new User();
+        user1.setEmail(user.getEmail());
+        user1.setUsername(user.getEmail().split("@")[0]);
+        user1.setPassword(passwordEncoder.encode(user.getPassword()));
+        User user2 = userService.createUser(user1);
+        return ResponseData.ok(new UserVo(user2.getId(), user2.getUsername(), user2.getEmail()));
     }
 
     @ResponseBody
     @PostMapping("/login")
-    public ResponseData<User> login(@RequestBody User user) {
+    public ResponseData<UserVo> login(@RequestBody LoginRequest user) {
         User user1 = userService.findUserByName(user.getUsername());
         if (user1 != null) {
-            if (user1.getPassword().equals(user.getPassword())) {
-                return ResponseData.ok(userService.findUserByName(user.getUsername()));
+            if (user1.getPassword().equals(passwordEncoder.encode(user.getPassword()))) {
+                return ResponseData.ok(new UserVo(user1.getId(), user1.getUsername(), user1.getEmail()));
             } else {
                 return ResponseData.error(MsgCodeEnum.PASSWORD_ERROR);
             }
@@ -42,16 +66,25 @@ public class UserController {
     }
     @ResponseBody
     @PostMapping("/verify_code")
-    public ResponseData<String> verifyCode(@RequestBody String email) {
+    public ResponseData<String> verifyCode(@Valid @RequestBody VerifyReq req) {
         String code = String.format("%06d", new Random().nextInt(999999));
-
+        redisUtil.set(getRedisKey(req.getEmail()), code);
         // 发送验证码到指定邮箱
-        emailService.sendVerificationCode(email, code);
+//        emailService.sendVerificationCode(email, code);
 
         // 返回生成的验证码（可以存储到数据库或缓存中以便后续验证）
         return ResponseData.ok(code);
     }
 
+    @ResponseBody
+    @DeleteMapping("/delete")
+    public ResponseData<String> delete(@RequestParam("id") Long id) {
+        userService.deleteById(id);
+        return ResponseData.ok("删除成功");
+    }
+    private String getRedisKey(String email) {
+        return "verifyCode:" + email;
+    }
 
 
 }

@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+/**
+ * @author shemin
+ */
 @Service
 public class UserService {
     @Resource
@@ -13,10 +16,11 @@ public class UserService {
     public User createUser(User user) {
         return userRepository.save(user);
     }
-    public User findUserById(Long id) {
-        return userRepository.findById(id).orElse(null);
-    }
     public User findUserByName(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
     }
 }

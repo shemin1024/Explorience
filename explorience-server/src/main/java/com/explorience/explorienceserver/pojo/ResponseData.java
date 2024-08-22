@@ -27,4 +27,9 @@ public class ResponseData<T> implements Serializable {
         Assert.isTrue(MsgCodeEnum.SUCCESS.getCode()!=code.getCode(), "code 必须是错误的！");
         return new ResponseData<>(null, code);
     }
+
+    public static <T> ResponseData<T> error(MsgCodeEnum code,T data) {
+        Assert.isTrue(MsgCodeEnum.SUCCESS.getCode()!=code.getCode(), "code 必须是错误的！");
+        return new ResponseData<>(data, code);
+    }
 }
