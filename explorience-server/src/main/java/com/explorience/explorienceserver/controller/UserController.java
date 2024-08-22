@@ -1,6 +1,8 @@
 package com.explorience.explorienceserver.controller;
 
 import com.explorience.explorienceserver.entity.User;
+import com.explorience.explorienceserver.enums.MsgCodeEnum;
+import com.explorience.explorienceserver.pojo.ResponseData;
 import com.explorience.explorienceserver.service.EmailService;
 import com.explorience.explorienceserver.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +13,7 @@ import javax.annotation.Resource;
 import java.util.Random;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/v1/user")
 public class UserController {
     @Resource
     private UserService userService;
@@ -20,34 +22,34 @@ public class UserController {
 
     @ResponseBody
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody User user) {
-        return ResponseEntity.ok(userService.createUser(user));
+    public ResponseData<User> register(@RequestBody User user) {
+        return ResponseData.ok(userService.createUser(user));
     }
 
     @ResponseBody
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody User user) {
-        User user1 = userService.findUserByName(user.getName());
+    public ResponseData<User> login(@RequestBody User user) {
+        User user1 = userService.findUserByName(user.getUsername());
         if (user1 != null) {
             if (user1.getPassword().equals(user.getPassword())) {
-                return ResponseEntity.ok(userService.findUserByName(user.getName()));
+                return ResponseData.ok(userService.findUserByName(user.getUsername()));
             } else {
-                return ResponseEntity.badRequest().build();
+                return ResponseData.error(MsgCodeEnum.PASSWORD_ERROR);
             }
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseData.error(MsgCodeEnum.NOT_FOUND);
         }
     }
     @ResponseBody
     @PostMapping("/verify_code")
-    public ResponseEntity<String> verifyCode(@RequestBody String email) {
+    public ResponseData<String> verifyCode(@RequestBody String email) {
         String code = String.format("%06d", new Random().nextInt(999999));
 
         // 发送验证码到指定邮箱
         emailService.sendVerificationCode(email, code);
 
         // 返回生成的验证码（可以存储到数据库或缓存中以便后续验证）
-        return ResponseEntity.ok(code);
+        return ResponseData.ok(code);
     }
 
 
