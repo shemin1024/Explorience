@@ -19,6 +19,7 @@ public class RegisterReq {
     @NotEmpty
     @Email
     private String email;
+    private String username;
     @NotEmpty
     private String verifyCode;
 }

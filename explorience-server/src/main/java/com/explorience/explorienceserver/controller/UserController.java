@@ -30,7 +30,7 @@ public class UserController {
 
     @ResponseBody
     @PostMapping("/register")
-    public ResponseData<UserVo> register(@RequestBody RegisterReq user) {
+    public ResponseData<UserVo> register(@Valid @RequestBody RegisterReq user) {
         if (userService.findUserByName(user.getEmail()) != null) {
             return ResponseData.error(MsgCodeEnum.EXIST);
         }
@@ -44,7 +44,7 @@ public class UserController {
         // 保存用户
         User user1 = new User();
         user1.setEmail(user.getEmail());
-        user1.setUsername(user.getEmail().split("@")[0]);
+        user1.setUsername(user.getUsername().isEmpty()?user.getEmail().split("@")[0]:user.getUsername());
         user1.setPassword(passwordEncoder.encode(user.getPassword()));
         User user2 = userService.createUser(user1);
         return ResponseData.ok(new UserVo(user2.getId(), user2.getUsername(), user2.getEmail()));
@@ -52,10 +52,10 @@ public class UserController {
 
     @ResponseBody
     @PostMapping("/login")
-    public ResponseData<UserVo> login(@RequestBody LoginRequest user) {
+    public ResponseData<UserVo> login(@Valid @RequestBody LoginRequest user) {
         User user1 = userService.findUserByName(user.getUsername());
         if (user1 != null) {
-            if (user1.getPassword().equals(passwordEncoder.encode(user.getPassword()))) {
+            if (passwordEncoder.matches(user.getPassword(), user1.getPassword())) {
                 return ResponseData.ok(new UserVo(user1.getId(), user1.getUsername(), user1.getEmail()));
             } else {
                 return ResponseData.error(MsgCodeEnum.PASSWORD_ERROR);
@@ -65,15 +65,15 @@ public class UserController {
         }
     }
     @ResponseBody
-    @PostMapping("/verify_code")
-    public ResponseData<String> verifyCode(@Valid @RequestBody VerifyReq req) {
+    @GetMapping("/verify_code")
+    public ResponseData<VerifyCodeRsp> verifyCode(@RequestParam("email") String req) {
         String code = String.format("%06d", new Random().nextInt(999999));
-        redisUtil.set(getRedisKey(req.getEmail()), code);
+        redisUtil.set(getRedisKey(req), code);
         // 发送验证码到指定邮箱
 //        emailService.sendVerificationCode(email, code);
 
         // 返回生成的验证码（可以存储到数据库或缓存中以便后续验证）
-        return ResponseData.ok(code);
+        return ResponseData.ok(new VerifyCodeRsp(code));
     }
 
     @ResponseBody
