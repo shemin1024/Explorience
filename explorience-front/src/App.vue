@@ -2,30 +2,21 @@
  * @Author: shemin
  * @Date: 2024-08-16 14:30:20
  * @LastEditors: shemin
- * @LastEditTime: 2024-08-19 17:25:49
+ * @LastEditTime: 2024-08-20 11:03:22
  * @Description: file content
  * @FilePath: \explorience\explorience-front\src\App.vue
 -->
 <template>
   <div id="app">
-    <HeaderEl />
-    <ElCarousel />
-    <AppFooter />
+    <router-view />
   </div>
 </template>
 
 <script>
-import HeaderEl from "./components/HeaderEl.vue";
-import ElCarousel from "./components/ElCarousel.vue";
-import AppFooter from "./components/AppFooter.vue";
+
 
 export default {
   name: "App",
-  components: {
-    HeaderEl,
-    ElCarousel,
-    AppFooter,
-  },
 };
 </script>
 

@@ -12,5 +12,10 @@
     "shanghai": "上海",
     "guangzhou": "广州",
     "chengdu": "成都",
-    "visaGuide": "签证指南"
+    "visaGuide": "签证指南",
+    "username": "用户名",
+    "password": "密码",
+    "reset": "重置",
+    "email": "邮箱",
+    "verifyCode": "验证码"
 }

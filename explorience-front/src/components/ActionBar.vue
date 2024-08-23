@@ -2,13 +2,13 @@
  * @Author: shemin
  * @Date: 2024-08-18 11:10:21
  * @LastEditors: shemin
- * @LastEditTime: 2024-08-19 10:20:36
+ * @LastEditTime: 2024-08-20 10:50:45
  * @Description: file content
  * @FilePath: \explorience\explorience-front\src\components\ActionBar.vue
 -->
 <template>
   <div class="action-bar">
-    <el-button round type="warning" @click="$router.push('/login')">
+    <el-button round type="warning" @click="goToLogin">
       {{ $t("login") }}
     </el-button>
     <div class="language-switcher">
@@ -34,6 +34,9 @@ export default {
   methods: {
     changeLanguage(lang) {
       this.$i18n.locale = lang; // 切换语言
+    },
+    goToLogin() {
+      this.$router.push({ name: "Login" });
     },
   },
 };

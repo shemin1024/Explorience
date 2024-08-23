@@ -1,6 +1,6 @@
 {
     "register": "Register",
-    "login": "Login",
+    "login": "Log In",
     "popDest": "Popular Destinations",
     "allDest": "All Destinations",
     "service": "Services",
@@ -12,5 +12,10 @@
     "beijing": "Beijing",
     "guangzhou": "Guangzhou",
     "chengdu": "Chengdu",
-    "visaGuide": "Visa Application Guide"
+    "visaGuide": "Visa Application Guide",
+    "username": "Username",
+    "password": "Password",
+    "reset": "Reset",
+    "email": "Email",
+    "verifyCode": "Verification Code"
 }
