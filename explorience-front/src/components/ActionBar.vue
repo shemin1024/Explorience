@@ -2,15 +2,28 @@
  * @Author: shemin
  * @Date: 2024-08-18 11:10:21
  * @LastEditors: shemin
- * @LastEditTime: 2024-08-20 10:50:45
+ * @LastEditTime: 2024-08-24 13:38:34
  * @Description: file content
  * @FilePath: \explorience\explorience-front\src\components\ActionBar.vue
 -->
 <template>
   <div class="action-bar">
-    <el-button round type="warning" @click="goToLogin">
+    <el-button round type="warning" @click="goToLogin" v-if="!isAuthenticated">
       {{ $t("login") }}
     </el-button>
+    <el-dropdown v-if="isAuthenticated" @command="handleCommand">
+      <span class="el-dropdown-link">
+        {{ userInfo }}
+        <el-icon><arrow-down /></el-icon>
+      </span>
+      <template #dropdown>
+        <el-dropdown-menu>
+          <el-dropdown-item command="profile">个人资料</el-dropdown-item>
+          <el-dropdown-item command="settings">设置</el-dropdown-item>
+          <el-dropdown-item command="logout">登出</el-dropdown-item>
+        </el-dropdown-menu>
+      </template>
+    </el-dropdown>
     <div class="language-switcher">
       <el-select
         v-model="currentLanguage"
@@ -23,22 +36,42 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: "ActionBar",
-  data() {
-    return {
-      currentLanguage: this.$i18n.locale, // 获取当前语言
-    };
+
+<script setup>
+import { useI18n } from "vue-i18n";
+import { computed } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+const router = useRouter();
+const store = useStore();
+const { locale } = useI18n();
+const isAuthenticated = computed(() => store.getters.isAuthenticated);
+const userInfo = computed(() => store.getters.getUserInfo);
+console.log("userInfo----------" + userInfo.value);
+const handleCommand = (command) => {
+  if (command === "logout") {
+    store.dispatch("removeToken");
+    store.dispatch("saveUserInfo", null);
+    router.push("/login"); // 重定向到登录页面
+  } else if (command === "profile") {
+    //router.push('/profile'); // 跳转到个人资料页
+  } else if (command === "settings") {
+    //router.push('/settings'); // 跳转到设置页
+  }
+};
+const currentLanguage = computed({
+  get() {
+    return locale.value;
   },
-  methods: {
-    changeLanguage(lang) {
-      this.$i18n.locale = lang; // 切换语言
-    },
-    goToLogin() {
-      this.$router.push({ name: "Login" });
-    },
+  set(lang) {
+    locale.value = lang;
   },
+});
+const changeLanguage = (lang) => {
+  locale.value = lang;
+};
+const goToLogin = () => {
+  router.push({ name: "Login" });
 };
 </script>
 <style scoped>
@@ -65,5 +98,10 @@ export default {
 .login-button:hover {
   background-color: #ffa500;
   color: white;
+}
+.el-dropdown-link {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 </style>

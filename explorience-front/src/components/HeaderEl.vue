@@ -2,7 +2,7 @@
  * @Author: shemin
  * @Date: 2024-08-19 16:59:55
  * @LastEditors: shemin
- * @LastEditTime: 2024-08-20 09:51:50
+ * @LastEditTime: 2024-08-24 13:43:03
  * @Description: file content
  * @FilePath: \explorience\explorience-front\src\components\HeaderEl.vue
 -->
@@ -10,8 +10,8 @@
   <el-header height="60px" class="header">
     <div class="logo">
       <!-- 使用Element Plus中的图标组件来展示Logo -->
-      <el-icon>
-        <img src="@/assets/logo.png" alt="Logo" />
+      <el-icon @click="goHome">
+        <img src="@/assets/logo3.png" alt="Logo" />
       </el-icon>
     </div>
 
@@ -80,13 +80,12 @@
   </el-header>
 </template>
 
-<script>
-import ActionBar from "./ActionBar.vue";
-export default {
-  name: "HeaderComponent",
-  components: {
-    ActionBar,
-  },
+<script setup>
+import { useRouter } from "vue-router";
+import ActionBar from "@/components/ActionBar.vue";
+const router = useRouter();
+const goHome = () => {
+  router.push("/");
 };
 </script>
 

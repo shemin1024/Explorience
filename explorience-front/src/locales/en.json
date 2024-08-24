@@ -17,5 +17,8 @@
     "password": "Password",
     "reset": "Reset",
     "email": "Email",
-    "verifyCode": "Verification Code"
+    "verifyCode": "Verification Code",
+    "forgetPassword": "Forget Password?",
+    "getCode": "Get Code",
+    "signup": "Don't have an account? Sign up now!"
 }

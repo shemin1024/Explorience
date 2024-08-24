@@ -2,13 +2,13 @@
  * @Author: shemin
  * @Date: 2024-08-19 09:04:06
  * @LastEditors: shemin
- * @LastEditTime: 2024-08-19 10:01:04
+ * @LastEditTime: 2024-08-23 11:38:11
  * @Description: file content
  * @FilePath: \explorience\explorience-front\src\components\ElCarousel.vue
 -->
 <template>
   <div class="block text-center">
-    <el-carousel height="800px">
+    <el-carousel height="680px">
       <el-carousel-item v-for="(image, index) in images" :key="index">
         <img
           :src="require(`@/assets/${image}`)"
@@ -22,7 +22,13 @@
 </template>
 <script setup>
 import { ref } from "vue";
-const images = ref(["banner4.png", "banner1.jpg", "banner2.jpg"]);
+const images = ref([
+  "banner5.jpg",
+  "banner1.jpg",
+  "banner2.jpg",
+  "banner4.jpg",
+  "banner3.jpg",
+]);
 </script>
 <style scoped>
 .el-carousel__item img {

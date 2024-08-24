@@ -2,7 +2,7 @@
  * @Author: shemin
  * @Date: 2024-08-16 14:30:20
  * @LastEditors: shemin
- * @LastEditTime: 2024-08-21 11:12:00
+ * @LastEditTime: 2024-08-24 10:24:57
  * @Description: file content
  * @FilePath: \explorience\explorience-front\src\main.js
  */
@@ -17,6 +17,7 @@ import './styles/fontFamily.scss'
 import en from './locales/en.json';
 import zh from './locales/zh.json';
 import router from './route';
+import store from './store/store'
 const i18n = createI18n({
     locale: 'en', // 设置默认语言
     fallbackLocale: 'en', // 回退语言
@@ -33,4 +34,5 @@ Object.keys(ElIcons).forEach(key => {
     app.component(key, ElIcons[key])
 })
 app.use(router);
+app.use(store);
 app.mount('#app');

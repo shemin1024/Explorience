@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from '../store/store.js';
 const request = axios.create({
     baseURL: 'http://localhost:8081'
 })
@@ -6,7 +7,7 @@ const request = axios.create({
 request.interceptors.request.use(
     config => {
         // 在请求发送前做些什么，比如在请求头中添加 token
-        const token = localStorage.getItem('token');
+        const token = store.getters.getToken;
         if (token) {
             config.headers['Authorization'] = `Bearer ${token}`;
         }

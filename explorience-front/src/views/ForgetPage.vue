@@ -1,32 +1,16 @@
-<!--
- * @Author: shemin
- * @Date: 2024-08-23 09:05:51
- * @LastEditors: shemin
- * @LastEditTime: 2024-08-23 15:30:06
- * @Description: file content
- * @FilePath: \explorience\explorience-front\src\views\RegisterPage.vue
--->
 <template>
   <HeaderEl />
-  <div class="register-container">
-    <el-card class="register-card">
-      <div class="register-card-header">
-        <span>{{ $t("register") }}</span>
+  <div class="forget-container">
+    <el-card class="forget-card">
+      <div class="forget-card-header">
+        <span>{{ $t("forgetPassword") }}</span>
       </div>
-      <el-form :model="user" ref="registerForm" :rules="rules">
+      <el-form :model="user" ref="forgetForm" :rules="rules">
         <el-form-item prop="email">
           <el-input
             v-model="user.email"
             :placeholder="$t('email')"
             :prefix-icon="Message"
-            clearable
-          ></el-input>
-        </el-form-item>
-        <el-form-item prop="username">
-          <el-input
-            v-model="user.username"
-            :placeholder="$t('username')"
-            :prefix-icon="User"
             clearable
           ></el-input>
         </el-form-item>
@@ -47,16 +31,14 @@
           >
             <template #append>
               <el-button :disabled="countdown > 0" @click="getVerificationCode">
-                <span v-if="countdown === 0">{{ $t("getCode") }}</span>
+                <span v-if="countdown === 0">{{$t("getCode")}}</span>
                 <span v-else>{{ countdown }}s</span>
               </el-button>
             </template>
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleRegister">{{
-            $t("register")
-          }}</el-button>
+          <el-button @click="handleUpdate">{{ $t("reset") }}</el-button>
           <el-button @click="gotoLogin">{{ $t("login") }}</el-button>
         </el-form-item>
       </el-form>
@@ -66,16 +48,15 @@
 </template>
 <script setup>
 import HeaderEl from "../components/HeaderEl.vue";
-import { User, Lock, Message, CircleCheck } from "@element-plus/icons-vue";
+import { Lock, Message, CircleCheck } from "@element-plus/icons-vue";
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import AppFooter from "@/components/AppFooter.vue";
-import { register, getVerifyCode } from "@/api/user";
+import { updatePassword, getVerifyCode } from "@/api/user";
 import { ElMessage } from "element-plus";
-const registerForm = ref(null);
+const forgetForm = ref(null);
 const router = useRouter();
 const user = reactive({
-  username: "",
   password: "",
   email: "",
   verifyCode: "",
@@ -92,18 +73,17 @@ const rules = ref({
   verifyCode: [{ required: true, message: "请输入验证码", trigger: "blur" }],
 });
 
-const handleRegister = async () => {
-  const valid = await registerForm.value.validate();
+const handleUpdate = async () => {
+  const valid = await forgetForm.value.validate();
   if (!valid) {
     return false;
   }
   const params = {
-    username: user.username,
     password: user.password,
     email: user.email,
     verifyCode: user.verifyCode,
   };
-  const response = await register(params);
+  const response = await updatePassword(params);
   if (response.code === 200) {
     router.push({ name: "Login" });
   } else {
@@ -143,7 +123,7 @@ const gotoLogin = () => {
 </script>
 
 <style scoped>
-.register-container {
+.forget-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -151,12 +131,12 @@ const gotoLogin = () => {
   background-color: #f5f5f5;
 }
 
-.register-card {
+.forget-card {
   width: 400px;
   padding: 20px;
 }
 
-.register-card-header {
+.forget-card-header {
   font-size: 24px;
   text-align: center;
   margin-bottom: 20px;
