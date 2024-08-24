@@ -1,10 +1,12 @@
 package com.explorience.explorienceserver.controller;
 
+import com.explorience.explorienceserver.config.CustomUserDetailsService;
 import com.explorience.explorienceserver.entity.User;
 import com.explorience.explorienceserver.enums.MsgCodeEnum;
 import com.explorience.explorienceserver.pojo.*;
 import com.explorience.explorienceserver.service.EmailService;
 import com.explorience.explorienceserver.service.UserService;
+import com.explorience.explorienceserver.utils.JwtUtil;
 import com.explorience.explorienceserver.utils.MD5Utils;
 import com.explorience.explorienceserver.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Random;
 
@@ -79,7 +82,9 @@ public class UserController {
         User user1 = userService.findUserByName(user.getUsername());
         if (user1 != null) {
             if (passwordEncoder.matches(user.getPassword(), user1.getPassword())) {
-                return ResponseData.ok(new UserVo(user1.getId(), user1.getUsername(), user1.getEmail()));
+                UserVo rsp = new UserVo(user1.getId(), user1.getUsername(), user1.getEmail());
+                rsp.setToken(JwtUtil.generateToken(user1.getUsername()));
+                return ResponseData.ok(rsp);
             } else {
                 return ResponseData.error(MsgCodeEnum.PASSWORD_ERROR);
             }
@@ -107,6 +112,19 @@ public class UserController {
     public ResponseData<String> delete(@RequestParam("id") Long id) {
         userService.deleteById(id);
         return ResponseData.ok("删除成功");
+    }
+
+    @ResponseBody
+    @GetMapping("/user_info")
+    public ResponseData<UserVo> getUserInfo(HttpServletRequest request) {
+        String authorizationHeader = request.getHeader("Authorization");
+        String username = null;
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            String jwt = authorizationHeader.substring(7);
+            username = JwtUtil.extractUsername(jwt);
+        }
+        User user1 = userService.findUserByName(username);
+        return ResponseData.ok(new UserVo(user1.getId(), user1.getUsername(), user1.getEmail()));
     }
 
     private String getRedisKey(String email) {

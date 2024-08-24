@@ -12,6 +12,7 @@ public class UserVo {
     private Long id;
     private String username;
     private String email;
+    private String token;
 
     public UserVo(Long id, String username, String email) {
         this.id = id;
