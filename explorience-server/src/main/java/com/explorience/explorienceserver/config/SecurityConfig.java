@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http.cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/home").permitAll()
                 .antMatchers(
@@ -43,7 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/v3/api-docs.yaml",
                         "/api/v1/user/register",
                         "/api/v1/user/login",
-                        "/api/v1/user/verify_code"
+                        "/api/v1/user/verify_code",
+                        "/api/v1/user/update_password"
                 ).permitAll()
                 .anyRequest().authenticated()
                 .and()
