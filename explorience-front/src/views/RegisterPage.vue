@@ -2,7 +2,7 @@
  * @Author: shemin
  * @Date: 2024-08-23 09:05:51
  * @LastEditors: shemin
- * @LastEditTime: 2024-08-23 15:30:06
+ * @LastEditTime: 2024-08-26 15:21:28
  * @Description: file content
  * @FilePath: \explorience\explorience-front\src\views\RegisterPage.vue
 -->
@@ -121,7 +121,7 @@ const getVerificationCode = async () => {
   }
   const response = await getVerifyCode(user.email);
   if (response.code === 200) {
-    ElMessage.success("验证码发送成功" + response.data.code);
+    ElMessage.success("验证码发送成功");
   } else {
     ElMessage.error(response.msg);
   }

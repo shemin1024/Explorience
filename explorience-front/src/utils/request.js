@@ -1,7 +1,7 @@
 import axios from 'axios'
 import store from '../store/store.js';
 const request = axios.create({
-    baseURL: 'http://localhost:8081'
+    baseURL: process.env.VUE_APP_BASE_URL
 })
 // 请求拦截器
 request.interceptors.request.use(

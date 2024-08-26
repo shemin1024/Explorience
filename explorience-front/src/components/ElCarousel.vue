@@ -2,13 +2,13 @@
  * @Author: shemin
  * @Date: 2024-08-19 09:04:06
  * @LastEditors: shemin
- * @LastEditTime: 2024-08-23 11:38:11
+ * @LastEditTime: 2024-08-26 15:07:19
  * @Description: file content
  * @FilePath: \explorience\explorience-front\src\components\ElCarousel.vue
 -->
 <template>
   <div class="block text-center">
-    <el-carousel height="680px">
+    <el-carousel height="760px">
       <el-carousel-item v-for="(image, index) in images" :key="index">
         <img
           :src="require(`@/assets/${image}`)"
